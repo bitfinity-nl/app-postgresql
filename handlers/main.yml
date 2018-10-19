@@ -1,0 +1,13 @@
+---
+  # Title: app-postgresql
+  #
+  # Author: Luc Rutten
+  # File: handlers//main.yml
+  #
+  # Description:
+  #   The World's Most Advanced open source relational database
+
+  - name: restart_postgresql
+    systemd:
+      state: restarted
+      name: postgresql

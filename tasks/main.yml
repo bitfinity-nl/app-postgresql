@@ -1,0 +1,22 @@
+---
+  # Title: app-postgresql
+  #
+  # Author: Luc Rutten
+  # File: tasks/main.yml
+  #
+  # Description:
+  #   The World's Most Advanced open source relational database
+
+  - name: "For OS: Ubuntu 18.04LTS, Arch: amd64, State: Enabled"
+    import_tasks: ubt-1804-amd64-enabled.yml
+    when:
+      - ansible_distribution_version == "18.04"
+      - ansible_architecture == "x86_64"
+      - pgbd_state == 'enabled'
+
+  - name: "For OS: Ubuntu 18.04LTS, Arch: amd64, State: Disabled"
+    import_tasks: ubt-1804-amd64-disabled.yml
+    when:
+      - ansible_distribution_version == "18.04"
+      - ansible_architecture == "x86_64"
+      - pgbd_state == 'disabled'

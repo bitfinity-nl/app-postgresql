@@ -1,0 +1,48 @@
+---
+  # Title: app-postgresql
+  #
+  # Author: Luc Rutten
+  # File: tasks/ubt-1804-amd64-enabled.yml
+  #
+  # Description:
+  #   The World's Most Advanced open source relational database
+
+  - name: "Install packages"
+    apt:
+      name: "{{ packages }}"
+      state: present
+    vars:
+      packages:
+#      - libpq-dev
+#      - python-dev
+      - python-pip
+      - postgresql
+      - postgresql-contrib 
+
+  - name: "Install python modules"
+    pip:
+      name: psycopg2
+
+  - name: "Set superuser password for user(role) postgres"
+    raw: sudo su postgres -c "psql -U postgres -d postgres -c \"alter user postgres with password '{{ pgdb_super_password }}';\""
+
+  - name: "Check version of postgresql in /etc/postgresql"
+    shell: "ls /etc/postgresql/" 
+    register: pgdb_version
+
+  - name: "Display version of postgresql in /etc/postgresql"
+    debug:
+      var: pgdb_version.stdout
+
+  - name: "Transfer template postgresql.conf.j2 to /etc/postgresql/{{ pgdb_version.stdout }}/main/postgresql.conf"
+    template:
+      src: postgresql.conf.j2
+      dest: "/etc/postgresql/{{ pgdb_version.stdout }}/main/postgresql.conf"
+      owner: postgres
+      group: postgres
+      mode: 0644
+      backup: yes
+    notify:
+      - restart_postgresql
+
+

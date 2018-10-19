@@ -1,0 +1,22 @@
+---
+  # Title: app-postgresql
+  #
+  # Author: Luc Rutten
+  # File: defaults/main.yml
+  #
+  # Description:
+  #   The World's Most Advanced open source relational database
+
+  
+  # -- PostgreSQL server -- 
+  #
+  # Variable(s)
+  #   pgdb_state               : 'enabled' or disabled   # Whether the application is installed or not 
+  #   pgdb_password            : 'dbpassword'            # Password for the Database user
+  #   pgdb_listen_address      : '*'                     # Enable TCP connections (default: all)
+  #   pgdb_password_encryption : 'md5'                   # md5 or scram-sha-256
+  #
+  pgbd_state               : 'enabled'
+  pgdb_super_password      : 'Welcome123'
+  pgdb_listen_address      : '*'
+  pgdb_password_encryption : 'md5'
